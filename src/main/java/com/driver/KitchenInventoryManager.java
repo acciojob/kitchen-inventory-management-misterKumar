@@ -12,15 +12,28 @@ public class KitchenInventoryManager {
 
 	    public synchronized void addItem(String item, int quantity) {
 	    	// your code goes here
+			int currentQuantity = inventory.getOrDefault(item, 0);
+			currentQuantity += quantity;
+			inventory.put(item, currentQuantity);
+			System.out.println(quantity + " " + item + "(s) added to the inventory.");
 	    }
 
 	    public synchronized void removeItem(String item, int quantity) {
 	    	// your code goes here
+			int currentQuantity = inventory.getOrDefault(item, 0);
+			if (currentQuantity >= quantity) {
+				currentQuantity -= quantity;
+				inventory.put(item, currentQuantity);
+				System.out.println(quantity + " " + item + "(s) removed from the inventory.");
+			} else {
+				System.out.println("Error: Not enough " + item + " in the inventory.");
+			}
 	    }
 
 	    public synchronized int searchItem(String item) {
 	        int quantity = inventory.getOrDefault(item, 0);
 	        // your code goes here
+			System.out.println("There are " + quantity + " " + item + "(s) in the inventory.");
 	        return quantity;
 	    }
 
